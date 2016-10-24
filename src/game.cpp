@@ -2,7 +2,7 @@
 
 Game::Game() : menu(window) {
 	window.create(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pong");
-	gameState = pause;
+	gameState = Menu::GameState::pause;
 
 	ball = Ball(BALL_RADIUS);
 
@@ -32,8 +32,7 @@ void Game::loop() {
 					window.close();
 					break;
 				case Event::MouseButtonPressed:
-					menu.checkButtons(event, &gameMode);
-					std::cout<<gameMode;
+					menu.checkButtons(event, &gameMode, &gameState);
 					break;
 				default:
 					continue;
@@ -48,7 +47,7 @@ void Game::loop() {
 
 		window.clear();
 
-		if(gameState == play) {
+		if(gameState == Menu::GameState::play) {
 
 			ball.update();
 
@@ -56,7 +55,7 @@ void Game::loop() {
 			window.draw(player1.sprite);
 			window.draw(player2.sprite);
 		}
-		if(gameState == pause) {
+		if(gameState == Menu::GameState::pause) {
 			menu.draw();
 		}
 

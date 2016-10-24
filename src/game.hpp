@@ -26,11 +26,6 @@ public:
 	void loop();
 	void setBallAndPaddlesPosition();
 
-
-	enum GameState {
-		pause,
-		play
-	};
-	GameState gameState;
+	Menu::GameState gameState;
 	Menu::GameMode gameMode;
 };

@@ -3,15 +3,18 @@
 Menu::Menu(sf::RenderWindow &win) : window(win), joinButton(window), hostButton(window), playButton(window) {
 	font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
 }
-void Menu::checkButtons(sf::Event event, Menu::GameMode *gameMode){
+void Menu::checkButtons(sf::Event event, GameMode *gameMode, GameState *gameState){
 	if (playButton.isClicked(event)){
 		*gameMode = GameMode::offline;
+		*gameState = GameState::play;
 	}
 	if (joinButton.isClicked(event)){
 		*gameMode = GameMode::client;
+		*gameState = GameState::play;
 	}
 	if (hostButton.isClicked(event)){
 		*gameMode = GameMode::host;
+		*gameState = GameState::play;
 	}
 }
 void Menu::draw(){

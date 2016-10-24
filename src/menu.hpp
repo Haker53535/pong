@@ -1,3 +1,5 @@
+
+
 #include <SFML/Graphics.hpp>
 #include "button.hpp"
 
@@ -14,7 +16,11 @@ public:
 		host,
 		client
 	};
-	void checkButtons(sf::Event event, Menu::GameMode *gameMode);
+	enum GameState {
+		pause,
+		play
+	};
+	void checkButtons(sf::Event event, Menu::GameMode *gameMode,  Menu::GameState *gameState);
 private:
 	sf::RenderWindow &window;
 	Button joinButton;
