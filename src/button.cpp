@@ -1,27 +1,19 @@
 #include "button.hpp"
 
-Button::Button(std::string textString,
-			   	sf::RenderWindow & win,
-			   	sf::Color backgroundColor = sf::Color::White,
-			   	sf::Color textColor = sf::Color::Black,
- 		   	   	std::string fontAddress = "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
-			   	int characterSize = 10) : window(win) {
-	font.loadFromFile(fontAddress);
-	text.setFont(font);
-	text.setColor(textColor);
-	text.setString(textString);
-	text.setCharacterSize(characterSize);
-
+Button::Button(sf::RenderWindow &win) : window(win){
 }
 void Button::draw() {
 	window.draw(background);
 	window.draw(text);
 
 }
-void Button::setPosition (float x, float y, float width, float height){
+void Button::setPosition (float x, float y){
 	background.setPosition(x, y);
-	background.setSize( sf::Vector2f(width , height));
-	text.setPosition( x + width / 2 - text.getLocalBounds().width / 2, y + height / 2 - text.getLocalBounds().height / 2);
+}
+void Button::setDimensions (float width, float height) {
+	background.setSize({width , height});
+	text.setPosition( background.getPosition().x + width / 2 - text.getLocalBounds().width / 2,
+	 					background.getPosition().y + height / 2 - text.getLocalBounds().height / 2);
 }
 bool Button::isClicked(sf::Event event){
 	if(event.mouseButton.x > background.getPosition().x
@@ -30,4 +22,17 @@ bool Button::isClicked(sf::Event event){
 		&& event.mouseButton.y < background.getPosition().y + background.getSize().y)
 	return true;
 	return false;
+}
+void Button::setFont(sf::Font &font){
+	text.setFont(font);
+}
+void Button::setColors(sf::Color backgroundColor, sf::Color textColor){
+	text.setColor(textColor);
+	background.setFillColor(backgroundColor);
+}
+void Button::setText(std::string textString){
+	text.setString(textString);
+}
+void Button::setCharacterSize(int characterSize){
+	text.setCharacterSize(characterSize);
 }

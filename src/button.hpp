@@ -2,27 +2,24 @@
 
 class Button {
 public:
-	Button(std::string textString,
-		   	sf::RenderWindow & win,
-		   	sf::Color backgroundColor,
-		   	sf::Color textColor,
-		   	std::string fontAddress,
-		   	int characterSize );
+	Button(sf::RenderWindow &win);
 	void draw();
-	void setPosition(float x, float y, float width, float height);
-	void setPosition(sf::Vector2f vector);
+void setPosition(float x, float y);
+	void setDimensions(float width, float height);
 	bool isClicked(sf::Event event);
+	void setFont(sf::Font &font);
+	void setColors(sf::Color backgroundColor, sf::Color textColor);
+	void setText(std::string textString);
+	void setCharacterSize(int characterSize);
 
-	sf::RenderWindow & window;
-	int width, height;
-	sf::Color backgroundColor;
-	sf::Color textColor;
- 	std::string fontAddress;
-	std::string textString;
-	int characterSize;
 private:
+	sf::RenderWindow& window;
 	sf::Text text;
-	sf::Font font;
 	sf::RectangleShape background;
 	sf::Event event;
+	sf::Color backgroundColor;
+	sf::Color textColor;
+	int width, height;
+	std::string textString;
+	int characterSize;
 };
