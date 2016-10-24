@@ -1,8 +1,8 @@
 #include "game.hpp"
 
-Game::Game() {
+Game::Game() : menu(window) {
 	window.create(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pong");
-	gameState = play;
+	gameState = pause;
 
 	ball = Ball(BALL_RADIUS);
 
@@ -12,6 +12,7 @@ Game::Game() {
 
 void Game::start() {
 	setBallAndPaddlesPosition();
+	menu.setButtons(WINDOW_WIDTH);
 	loop();
 }
 
@@ -20,7 +21,6 @@ void Game::setBallAndPaddlesPosition() {
 	player1.sprite.setPosition(WINDOW_WIDTH - PADDLE_WIDTH, WINDOW_HEIGHT / 2 - PADDLE_HEIGHT / 2);
 	player2.sprite.setPosition(0, WINDOW_HEIGHT / 2 - PADDLE_HEIGHT / 2);
 }
-
 void Game::loop() {
 	window.setFramerateLimit(MAX_FPS);
 
@@ -31,10 +31,13 @@ void Game::loop() {
 				case Event::Closed:
 					window.close();
 					break;
+				case Event::MouseButtonPressed:
+					menu.checkButtons(event, &gameMode);
+					std::cout<<gameMode;
+					break;
 				default:
 					continue;
 			}
-
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -52,6 +55,9 @@ void Game::loop() {
 			window.draw(ball.sprite);
 			window.draw(player1.sprite);
 			window.draw(player2.sprite);
+		}
+		if(gameState == pause) {
+			menu.draw();
 		}
 
 		window.display();

@@ -1,15 +1,15 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "ball.hpp"
 #include "paddle.hpp"
-#include "button.hpp"
+#include "menu.hpp"
 
 using namespace sf;
 
 class Game {
 private:
-	RenderWindow window;
-
+	Menu menu;
 	Ball ball;
 	Paddle player1;
 	Paddle player2;
@@ -19,15 +19,18 @@ private:
 	const unsigned int MAX_FPS = 60;
 
 public:
+	RenderWindow window;
 	Game();
 
 	void start();
 	void loop();
 	void setBallAndPaddlesPosition();
 
+
 	enum GameState {
 		pause,
 		play
 	};
 	GameState gameState;
+	Menu::GameMode gameMode;
 };
